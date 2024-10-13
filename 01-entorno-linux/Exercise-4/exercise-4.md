@@ -17,4 +17,4 @@ $ ejercicio4.sh patata
 > Aparece por primera vez en la línea 27
 ```
 
-[Archivo bash](./exercise-4.sh)
+[Solución: Archivo bash](./exercise-4.sh)
