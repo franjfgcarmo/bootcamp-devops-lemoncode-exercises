@@ -12,4 +12,4 @@ chmod +x ./exercise3.sh
 ./exercise3.sh
 ```
 
-[Archivo bash](./exercise-4.sh)
+[Archivo bash](./exercise-3.sh)

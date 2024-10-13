@@ -16,4 +16,4 @@ $ ejercicio5.sh https://lemoncode.net/ patata
 ```
 
 
-[Archivo bash](./exercise-5sh)
+[Archivo bash](./exercise-5.sh)
