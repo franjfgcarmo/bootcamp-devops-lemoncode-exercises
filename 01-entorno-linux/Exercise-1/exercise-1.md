@@ -16,6 +16,8 @@ Me encanta la bash!!
 
 Y `file2.txt` debe permanecer vacío.
 
+### Solución: 
+
 ```shell
 vagrant@ubuntu-client:~$ mkdir -p foo/dummy
 vagrant@ubuntu-client:~$ mkdir -p foo/empty

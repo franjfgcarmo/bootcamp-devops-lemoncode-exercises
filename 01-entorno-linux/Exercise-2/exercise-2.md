@@ -16,6 +16,8 @@ Donde `file1.txt` y `file2.txt` deben contener el siguiente texto:
 Me encanta la bash!!
 ```
 
+### Solución: 
+
 ```shell
 vagrant@ubuntu-client:~$ cat foo/dummy/file1.txt > foo/dummy/file2.txt
 vagrant@ubuntu-client:~$ cat foo/dummy/file1.txt foo/dummy/file2.txt
