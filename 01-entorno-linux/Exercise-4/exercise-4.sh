@@ -2,8 +2,11 @@
 
 if [[ $# -lt 1 ]]; then
   echo "Error: missing arguments."
-  exit 1
+  exit 2
 fi
+
+#Single-Line if statement
+# [ $# -lt 1 ] && { echo "Error: missing arguments."; exit 2; }
 
 FILENAME=result.txt
 

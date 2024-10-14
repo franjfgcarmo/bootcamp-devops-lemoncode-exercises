@@ -2,8 +2,11 @@
 
 if [[ $# -ne 2 ]]; then
   echo "Se necesitan dos parametros para ejecutar el script"
-  exit 1
+  exit 2
 fi
+
+# Single-Line if statement
+# [ $# -ne 2 ] && { echo "Se necesitan dos parametros para ejecutar el script"; exit 2; }
 
 FILENAME=result.txt
 
