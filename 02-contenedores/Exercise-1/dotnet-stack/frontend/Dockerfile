@@ -7,7 +7,7 @@ COPY . ./
 ENV NODE_ENV=production
 
 #Instalo las dependencias de mi aplicación, ejecutando el comando npm install
-RUN npm install 
+RUN npm install --omit=dev
 
 #Copio el resto de los archivos en el directorio /app
 COPY . .
