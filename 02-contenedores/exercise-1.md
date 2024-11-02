@@ -39,7 +39,7 @@ __Tip para frontend__: Para ejecutar el frontend abre esta carpeta en VS Code y 
 
 ## Solución de Ejercicio 1
 
-1. Crear Networkd
+1. Crear Network
 
 ```powershell
 docker network create lemoncode-challenge
@@ -53,6 +53,7 @@ docker network inspect lemoncode-challenge
 #Crear volumen de mongo
 docker run --name some-mongo --mount type=volume,source=mongo,target=/data/db -p 27017:27017 -d --network lemoncode-challenge  mongo
 
+# Comando para ver que se ha creado el volumen.
 docker exec -it some-mongo /bin/bash                                                                                                
 root@11acd20a7771:/# ls /data/db
 
@@ -60,8 +61,8 @@ docker volume ls
 ```
 
 3. Crear imagen de Api.
-He añadido [.dockerignore](./lemoncode-challenge/dotnet-stack/backend/.dockerignore) y dejo el link a [Dockerfile](./lemoncode-challenge/dotnet-stack/backend/Dockerfile)
-He puesto varias formas de crear el contenedor, fue un poco iterando y probando. La opción tres sería la buena
+
+Link a [.dockerignore](./lemoncode-challenge/dotnet-stack/backend/.dockerignore) y a [Dockerfile](./lemoncode-challenge/dotnet-stack/backend/Dockerfile). He puesto varias formas de crear el contenedor, fue un poco iterando y probando. La opción tres sería la buena
 
 ```shell
 # Dirección del docker file del backend
@@ -82,8 +83,8 @@ docker run -e TopicstoreDatabaseSettings__ConnectionString="mongodb://some-mongo
 ```
 
 3. Crear imagen de front.
-He añadido [.dockerignore](./lemoncode-challenge/dotnet-stack/frontend/.dockerignore) y dejo el link a [Dockerfile](./lemoncode-challenge/dotnet-stack/frontend/Dockerfile)
-He puesto varias formas de crear el contenedor, fue un poco iterando y probando. La opción tres sería la buena
+
+Link a [.dockerignore](./lemoncode-challenge/dotnet-stack/frontend/.dockerignore) y link a [Dockerfile](./lemoncode-challenge/dotnet-stack/frontend/Dockerfile). He puesto varias formas de crear el contenedor, fue un poco iterando y probando. La opción tres sería la buena
 
 ```shell
 # Dirección del docker file del frontend
