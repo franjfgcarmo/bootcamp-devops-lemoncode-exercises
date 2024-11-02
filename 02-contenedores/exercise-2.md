@@ -8,6 +8,8 @@ Link al docker compose: [docker-compose.yml](./lemoncode-challenge/docker-compos
 He creado un [script](./lemoncode-challenge/docker-entrypoint-initdb.d/init-mongo.js) que inicializa la base de datos.
 
 ```shell
+cd .\02-contenedores\lemoncode-challenge\
+
 # levantar el entorno
 docker compose up
 # Parar el entorno
