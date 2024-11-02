@@ -1,0 +1,43 @@
+services:
+
+  some-mongo:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    volumes:
+      - type: volume
+        source: mongo
+        target: /data/db
+      - ./docker-entrypoint-initdb.d/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    networks:
+      - lemoncode-challenge
+
+  topics-api:
+    depends_on: 
+      - some-mongo
+    build:
+      context: ./dotnet-stack/backend
+    ports:
+      - 5000:80
+    environment:
+      TopicstoreDatabaseSettings__ConnectionString: mongodb://some-mongo:27017
+    networks:
+      - lemoncode-challenge    
+    
+  frontend-api:
+    build:
+      context: ./dotnet-stack/frontend
+    ports:
+      - 8080:3000
+    environment:
+      API_URI: http://topics-api
+    networks:
+      - lemoncode-challenge    
+
+volumes:  
+  mongo:
+
+networks:
+  lemoncode-challenge:
+
+
