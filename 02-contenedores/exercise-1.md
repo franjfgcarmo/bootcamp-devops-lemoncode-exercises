@@ -60,6 +60,7 @@ docker volume ls
 ```
 
 3. Crear imagen de Api.
+He añadido [.dockerignore](./lemoncode-challenge/dotnet-stack/backend/.dockerignore) y dejo el link a [Dockerfile](./lemoncode-challenge/dotnet-stack/backend/Dockerfile)
 He puesto varias formas de crear el contenedor, fue un poco iterando y probando. La opción tres sería la buena
 
 ```shell
@@ -81,6 +82,7 @@ docker run -e TopicstoreDatabaseSettings__ConnectionString="mongodb://some-mongo
 ```
 
 3. Crear imagen de front.
+He añadido [.dockerignore](./lemoncode-challenge/dotnet-stack/frontend/.dockerignore) y dejo el link a [Dockerfile](./lemoncode-challenge/dotnet-stack/frontend/Dockerfile)
 He puesto varias formas de crear el contenedor, fue un poco iterando y probando. La opción tres sería la buena
 
 ```shell
