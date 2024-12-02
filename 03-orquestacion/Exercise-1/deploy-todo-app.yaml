@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-app
+  labels:
+    app: todo-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-app
+  template:
+    metadata:
+      name: todo-app
+      labels:
+        app: todo-app
+    spec:
+      containers:
+        - name: todo-app
+          image: lemoncodersbc/lc-todo-monolith:v5-2024
+          env:
+            - name: NODE_ENV
+              value: dev
+            - name: PORT
+              value: "3001"
+          ports:
+            - containerPort: 80
+      
