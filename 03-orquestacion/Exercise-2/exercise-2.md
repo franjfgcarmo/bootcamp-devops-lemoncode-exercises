@@ -88,3 +88,28 @@ El pod tarde un minuto en estar disponible.
 kubectl create cm migration --from-file .\todos_db.sql -o yaml > cm-db-migration.yaml
 ```
 
+4. Ejecutamos el job
+```powershell
+# Ejecutamos el jobs
+ kubectl apply -f .\job-db-migration.yaml
+# Hacemos un port-forward para ver que la actualización se realiza.
+ kubectl port-forward ss-db-todo-app-0 5432:5432
+```
+![Conexion base datos](./ss/images/db-todo.png)
+
+
+```shell
+ kubectl exec -it ss-db-todo-app-0 -- /bin/sh
+ # Contenedor del pod:
+  psql -U postgres -d todos_db
+psql (16.6 (Debian 16.6-1.pgdg120+1))
+Type "help" for help.
+
+todos_db=# SELECT * FROM public.todos;
+ id |     title     | completed |          due_date          | order
+----+---------------+-----------+----------------------------+-------
+ 12 | Learn Jenkins | f         | 2020-12-04 18:37:44.234+00 |
+ 13 | Learn GitLab  | t         | 2020-12-04 18:38:06.993+00 |
+ 21 | Learn K8s     | f         | 2020-12-04 19:12:16.174+00 |
+(3 rows)
+```
