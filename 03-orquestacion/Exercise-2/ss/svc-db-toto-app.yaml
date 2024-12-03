@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-db-todo-app
+spec:
+  selector:
+    app: ss-db-todo-app
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+  type: ClusterIP
+  
