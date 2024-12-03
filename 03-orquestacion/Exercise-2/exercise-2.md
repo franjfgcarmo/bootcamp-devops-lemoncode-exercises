@@ -63,3 +63,28 @@ En su lugar, hay varias alternativas que podríamos usar:
 1. En lugar de usar una imagen "cocinada" que es idéntica a la original pero con un fichero añadido podríamos pasar este fichero a través de un volumen (poner el fichero en un ConfigMap y montar el ConfigMap en el contenedor).
 2. Usar un job de Kubernetes que ejecutase el script. Este job podría ejecutar un contenedor que usase el cliente de la bbdd (psql en nuestro caso) y que lanzase el script contra la bbdd. El script se lo pasaríamos mediante un volumen usando un ConfigMap.
 3. Usar un _init container_ en el cliente (**no en la base de datos**). No podemos usar un _init container_ en el pod de la bbdd porque cuando se ejecutaría este _init container_ no se estaría ejecutando la bbdd. No obstante usar un _init container_ en el cliente (el pod de la app) no es una buena idea por dos motivos: el primero es que si el cliente se levanta antes que la bbdd,  el _init container_ no se podrá ejecutar, dará error y el pod quedará en `Init:Error`. El segundo es que este _init container_ se ejecutaría cada vez que se crease el pod de la app (si se escala horizontalmente cada pod tendrá su propio _init container_), por  lo que el script debe estar preparado para poder ser ejecutado N veces en paralelo y ser idempotente (lo que añade una complejidad inecesaria).
+
+## Solución
+1. 
+```powershell
+kubectl apply -f .
+configmap/cm-db-todo-app created
+persistentvolume/pv-db-todo-app created
+persistentvolumeclaim/pvc-db-todo-app created
+storageclass.storage.k8s.io/scn-db-todo-app created
+statefulset.apps/ss-db-todo-app created
+service/svc-db-todo-app created
+```
+El pod tarde un minuto en estar disponible.
+2. Pruebo la conexión a la base de datos a traves de un `port-forward`
+```powershell
+ kubectl port-forward ss-db-todo-app-0 5432:5432
+ Forwarding from 127.0.0.1:5432 -> 5432
+ Forwarding from [::1]:5432 -> 5432
+```
+![Conexion base datos](./ss/images/bd.png)
+3. Creamos un configmap para la migracion
+```powershell
+kubectl create cm migration --from-file .\todos_db.sql -o yaml > cm-db-migration.yaml
+```
+

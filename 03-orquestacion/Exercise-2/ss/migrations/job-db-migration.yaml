@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: run-sql-script
+spec:
+  template:
+    spec:
+      containers:
+        - name: sql-runner
+          image: postgres:16
+          envFrom:
+            - configMapRef:
+                name: cm-db-todo-app
+          command: ["/bin/sh", "-c"] 
+          args: 
+            - |
+              export PGPASSWORD=$POSTGRES_PASSWORD
+              psql -h svc-db-todo-app -U $POSTGRES_USER -f /sql-script/todos_db.sql
+          volumeMounts:
+            - name: sql-script-volume
+              mountPath: /sql-script
+      volumes:
+        - name: sql-script-volume
+          configMap:
+            name: migration
+      restartPolicy: Never
+  backoffLimit: 4
+
