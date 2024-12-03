@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-todo-app
+data:
+  NODE_ENV: "dev"
+  PORT: "3001"
+  DB_HOST: "svc-db-todo-app"
+  DB_USER: "postgres"
+  DB_PASSWORD: "postgres"
+  DB_PORT: "5432"
+  DB_NAME: "todos_db"
+  DB_VERSION: "16"
+  
+  
