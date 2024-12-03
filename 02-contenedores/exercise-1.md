@@ -53,12 +53,29 @@ docker network inspect lemoncode-challenge
 #Crear volumen de mongo
 docker run --name some-mongo --mount type=volume,source=mongo,target=/data/db -p 27017:27017 -d --network lemoncode-challenge  mongo
 
+# Docker run sin los puerto a mi host
+docker run --name some-mongo --mount type=volume,source=mongo,target=/data/db -d --network lemoncode-challenge  mongo
+
 # Comando para ver que se ha creado el volumen.
 docker exec -it some-mongo /bin/bash                                                                                                
 root@11acd20a7771:/# ls /data/db
 
 docker volume ls
 ```
+Se mapean los puerto para poder acceder desde fuera y poder inicializar la base de datos de mongo.
+Para la inicializa de la base de datos, he utilizado Azure Studio y un plugin de Mongodb. Le he dado al botón añadir y ejecutado el siguiente script:
+[init-mongo.js](./lemoncode-challenge/docker-entrypoint-initdb.d/init-mongo.js)
+ - Antes de ejecutar el script:
+
+![Azure-studio](./lemoncode-challenge/images/azure-studio.png)
+
+ - Después de ejecutar el script:
+![Azure-studio](./lemoncode-challenge/images/azure-studio-2.png)
+
+Para no exponer el puerto de mongo al exterior veo dos opciones:
+- Crearme un dockerfile desde la imagen de docker y copiarle el script que tengo de inicialización.
+- Borrar el contenedor y volver a crearlo sin los puertos.
+- No se se existe una tercera opción :).
 
 3. Crear imagen de Api.
 
@@ -70,15 +87,15 @@ Link a [.dockerignore](./lemoncode-challenge/dotnet-stack/backend/.dockerignore)
  
 # Opcion Api 1
 docker build -t topics-api:1.0.0 .
-docker run --name topics-api -d -p 5000:80 --network lemoncode-challenge  topics-api:1.0.0 
+docker run --name topics-api -d -p --network lemoncode-challenge  topics-api:1.0.0 
 
 #Opcion Api 2
 docker build --build-arg CONNECTION_STRING="://some-mongo:27017" -t topics-api:1.0.0 .
-docker run --name topics-api -d -p 5000:80 --network lemoncode-challenge  topics-api:1.0.0 
+docker run --name topics-api -d --network lemoncode-challenge  topics-api:1.0.0 
 
 #Opcion Api 3
 docker build -t topics-api:1.0.0 .
-docker run -e TopicstoreDatabaseSettings__ConnectionString="mongodb://some-mongo:27017" --name topics-api -d -p 5000:80 --network  lemoncode-challenge  topics-api:1.0.0 
+docker run -e TopicstoreDatabaseSettings__ConnectionString="mongodb://some-mongo:27017" --name topics-api -d --network  lemoncode-challenge  topics-api:1.0.0 
 
 ```
 
@@ -102,3 +119,9 @@ docker run --name topics-frontend -d -p 8080:3000 --network lemoncode-challenge 
 docker build -t topics-frontend:1.0.0 .
 docker run --name topics-frontend -e API_URI=http://topics-api -d -p 8080:3000 --network lemoncode-challenge  topics-frontend:1.0.0
 ```
+
+Adjunto: captura de pantalla donde se ve el acceso a la aplicación de frontend.
+![Azure-studio](./lemoncode-challenge/images/App-Exercise-1.png)
+
+Adjunto: captura de pantalla donde se ve los contenedores de docker:
+![Azure-studio](./lemoncode-challenge/images/docker-Exercise-1.png)
