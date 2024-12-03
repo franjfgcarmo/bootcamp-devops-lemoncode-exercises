@@ -52,7 +52,25 @@ docker network inspect lemoncode-challenge
 ```shell
 #Crear volumen de mongo
 docker run --name some-mongo --mount type=volume,source=mongo,target=/data/db -p 27017:27017 -d --network lemoncode-challenge  mongo
+```
 
+Se mapean los puerto para poder acceder desde fuera y poder inicializar la base de datos de mongo.
+Para la inicialización de la base de datos, he utilizado Azure Studio y un plugin de Mongodb. Le he dado al botón añadir y ejecutado el siguiente script:
+[init-mongo.js](./lemoncode-challenge/docker-entrypoint-initdb.d/init-mongo.js)
+- Antes de ejecutar el script:
+
+![Azure-studio](./lemoncode-challenge/images/azure-studio.png)
+
+- Después de ejecutar el script:
+  ![Azure-studio](./lemoncode-challenge/images/azure-studio-2.png)
+
+Para no exponer el puerto de mongo al exterior veo dos opciones:
+- Crearme un dockerfile desde la imagen de docker y copiarle el script que tengo de inicialización.
+- Borrar el contenedor y volver a crearlo sin los puertos. **He usado esta**
+- No se se existe una tercera opción :).
+```shell
+# Borro el contenedor
+docker rm some-mongo -f
 # Docker run sin los puerto a mi host
 docker run --name some-mongo --mount type=volume,source=mongo,target=/data/db -d --network lemoncode-challenge  mongo
 
@@ -62,20 +80,6 @@ root@11acd20a7771:/# ls /data/db
 
 docker volume ls
 ```
-Se mapean los puerto para poder acceder desde fuera y poder inicializar la base de datos de mongo.
-Para la inicializa de la base de datos, he utilizado Azure Studio y un plugin de Mongodb. Le he dado al botón añadir y ejecutado el siguiente script:
-[init-mongo.js](./lemoncode-challenge/docker-entrypoint-initdb.d/init-mongo.js)
- - Antes de ejecutar el script:
-
-![Azure-studio](./lemoncode-challenge/images/azure-studio.png)
-
- - Después de ejecutar el script:
-![Azure-studio](./lemoncode-challenge/images/azure-studio-2.png)
-
-Para no exponer el puerto de mongo al exterior veo dos opciones:
-- Crearme un dockerfile desde la imagen de docker y copiarle el script que tengo de inicialización.
-- Borrar el contenedor y volver a crearlo sin los puertos.
-- No se se existe una tercera opción :).
 
 3. Crear imagen de Api.
 
