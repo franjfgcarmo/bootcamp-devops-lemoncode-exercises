@@ -66,7 +66,7 @@ En su lugar, hay varias alternativas que podríamos usar:
 
 ## Solución
 Para el seed de datos, he optado por crear un job que ejecute un script el cual es montado desde un volumen a través de un configMap.
-1. Creo el configMap para el seed datos
+1. Creo el configMap desde el archivo ``todos_db.sql`` para el seed datos
 ```powershell
 > cd .\Exercise-2\ss-db\migrations\
 
@@ -154,14 +154,21 @@ postgres=#
 ```
 
 4. Ejecutamos el job
+- [job-db-migration.yaml](./ss-db/migrations/job-db-migration.yaml).
+  - El job utiliza el configMap: ``cm-todo-db`` (contiene usuario y contaseña) para realizar la conexión a la base datos.
+  - El job se conecta al statefulSet a través del servicio de clusterIp y ejecuta el script que se ha montado en el volumen ``sql-script`` desde el configMap.
+- [cm-db-migration.yaml](./ss-db/migrations/cm-db-migration.yaml). Este config mas se crea en el paso 1, aunque se podría volver a lanzar todo con el comando: `kubectl apply -f .`
 ```powershell
 cd .\Exercise-2\ss-db\migrations\
 # Ejecutamos el jobs
  kubectl apply -f .\job-db-migration.yaml
+
+```
+5. Probamos que el seed de datos se ha ejecutado utilizando un `port-forward`
+```powershell
 # Hacemos un port-forward para ver que la actualización se realiza.
 kubectl port-forward ss-todo-db-0 5432:5432
 ```
-
 Probamos la conexión a la base de datos con el cliente de Dveaver
 ![Conexion base datos](./images/db-todo.png)
 
@@ -181,3 +188,53 @@ todos_db=# SELECT * FROM public.todos;
  21 | Learn K8s     | f         | 2020-12-04 19:12:16.174+00 |
 (3 rows)
 ```
+6. Creamos el deployment de la app con todos sus recursos.
+
+- [cm-todo-app.yaml](./deploy-app/cm-todo-app.yaml). ConfigMap que almacena la cofiguración a la base de datos (statefulSet).
+- [deploy-todo-app.yaml](./deploy-app/deploy-todo-app.yaml). Deployment para la app. Los parametros de usuario y contraseña de la base de datos los obtiene del configMap ``cm-todo-db``.
+- [svc-todo-app.yaml](./deploy-app/svc-todo-app.yaml). Servicio de tipo load balancer
+```powershell
+cd .\Exercise-2\deploy-app\
+
+# Creamos los recursos
+> kubectl apply -f .
+configmap/cm-todo-app created
+deployment.apps/deploy-todo-app created
+service/svc-todo-app created
+
+# Algunas pruebas para revisar el deploy, pod y svc
+> kubectl get deploy
+NAME              READY   UP-TO-DATE   AVAILABLE   AGE
+deploy-todo-app   1/1     1            1           78s
+
+kubectl get pods
+NAME                               READY   STATUS    RESTARTS      AGE
+deploy-todo-app-6cc59669c5-6f6qv   1/1     Running   1 (89s ago)   4m54s
+ss-todo-db-0                       1/1     Running   0             43m
+
+> minkubectl get svc
+NAME           TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+kubernetes     ClusterIP      10.96.0.1        <none>        443/TCP        3h21m
+svc-todo-app   LoadBalancer   10.108.17.89     <pending>     80:30238/TCP   2m3s
+svc-todo-db    ClusterIP      10.104.100.246   <none>        5432/TCP       41m
+```
+
+7. Probamos a conectarnos a la aplicación.
+Para conectarnos desde nuestro host local, debemos lanzar el siguiente comando: 
+```powershell
+minikube tunnel
+```
+Una vez ejecutado el comando anterior podremos ver como el servicio de localBalancer tiene una ``EXTERNAL-IP`` asignada.
+```powershell
+ kubectl get svc
+NAME           TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+kubernetes     ClusterIP      10.96.0.1        <none>        443/TCP        4h1m
+svc-todo-app   LoadBalancer   10.108.47.25     127.0.0.1     80:30570/TCP   8m4s
+svc-todo-db    ClusterIP      10.104.100.246   <none>        5432/TCP       80m
+```
+Accediendo a la url [http://127.0.0.1/](http://127.0.0.1/) podremos acceder a la aplicación
+
+![app](./images/app.png)
+
+### Mejoras.
+- Algunos confiMap, podrían convertirse en fichero secret, pero no se si aporta mucho hacerlo, quizás si se hiciera desde con Helm desde una CI/CD, tendría mas sentido.

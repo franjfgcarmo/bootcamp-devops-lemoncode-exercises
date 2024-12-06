@@ -18,6 +18,17 @@ spec:
       containers:
         - name: todo-app
           image: lemoncodersbc/lc-todo-monolith-db:v5-2024
+          env:
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  key: POSTGRES_USER
+                  name: cm-todo-db
+            - name: DB_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: POSTGRES_PASSWORD
+                  name: cm-todo-db
           envFrom:
             - configMapRef:
                 name: cm-todo-app
