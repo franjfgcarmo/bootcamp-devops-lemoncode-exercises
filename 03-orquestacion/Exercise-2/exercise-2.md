@@ -232,9 +232,9 @@ kubernetes     ClusterIP      10.96.0.1        <none>        443/TCP        4h1m
 svc-todo-app   LoadBalancer   10.108.47.25     127.0.0.1     80:30570/TCP   8m4s
 svc-todo-db    ClusterIP      10.104.100.246   <none>        5432/TCP       80m
 ```
-Accediendo a la url [http://127.0.0.1/](http://127.0.0.1/) podremos acceder a la aplicación
+Accedemos a la url [http://127.0.0.1/](http://127.0.0.1/) donde minikube expoene el servicio de tipo loadbalancer.
 
 ![app](./images/app.png)
 
 ### Mejoras.
-- Algunos confiMap, podrían convertirse en fichero secret, pero no se si aporta mucho hacerlo, quizás si se hiciera desde con Helm desde una CI/CD, tendría mas sentido.
+- Algunos confiMap, podrían convertirse en fichero secret, pero no se si aporta mucho hacerlo, quizás si se hiciera con Helm y desde una CI/CD, tendría mas sentido.
