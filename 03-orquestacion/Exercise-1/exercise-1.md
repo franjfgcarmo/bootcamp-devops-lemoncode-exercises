@@ -26,13 +26,13 @@ Crear un `LoadBalancer service` para acceder al `Deployment` anteriormente cread
 
 ## Solución
 
-1. Crear deployment: [deploy-todo-app.yaml](deploy-todo-app.yaml)
-2. Aplicar el deplyment.
+1. Crear deployment, definido en el siguiente archivo: [deploy-todo-app.yaml](deploy-todo-app.yaml)
+2. Aplicar el deployment.
 ```shell
 > kubectl apply -f .\deploy-todo-app.yaml
 deployment.apps/todo-app created
 ```
-3. Crear el servicio:
+3. Crear el servicio: [svc-todo-app.yaml](svc-todo-app.yaml)
 4. Aplicar el servicio
 ```shell
 >  kubectl apply -f .\svc-todo-app.yaml
@@ -46,6 +46,7 @@ service/todo-app created
 
 ![todo-app](./todo-app.png)
 
+También podemos hacer un curl para verificar que la aplicación nos responde.
 ```powershell
  curl  http://127.0.0.1
 ```
@@ -53,13 +54,15 @@ service/todo-app created
 
 ### Notas
 
+Dejo una serie de comandos a modo de referencia, los cuales he ejecutado para verificar que los recursos de Kubernetes se creaban correctamente.
 
 ```shell
-
+# Reviso el log del contenedor.
 > kubectl logs todo-app-688cff8767-bkbf6
 execute
 Server running on port 3001
 
+# Reviso las variables de entorno que hemos creado
 > kubectl exec -it todo-app-688cff8767-bkbf6 -- /bin/sh
 /app # env
 KUBERNETES_PORT=tcp://10.96.0.1:443
@@ -70,7 +73,7 @@ YARN_VERSION=1.22.22
 SHLVL=1
 PORT=3001
 
-
+# Verifico que se puede hacer un curl a la aplicación.
 > curl  http://127.0.0.1
 
 StatusCode        : 200
@@ -79,7 +82,7 @@ Content           : <!doctype html><html lang="en"><head><meta charset="UTF-8"><
                   
 RawContent        : HTTP/1.1 200 OK
 
-
+# Verificos servicios, endpoint, pods...
 > kubectl get svc
 NAME         TYPE           CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
 kubernetes   ClusterIP      10.96.0.1    <none>        443/TCP        5h43m
@@ -99,4 +102,13 @@ todo-app-688cff8767-bkbf6   1/1     Running   1 (12m ago)   5h14m   10.244.0.5  
 NAME         TYPE           CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
 kubernetes   ClusterIP      10.96.0.1    <none>        443/TCP        5h49m
 todo-app     LoadBalancer   10.96.59.4   127.0.0.1     80:31399/TCP   6m9s
+```
+
+Borrar los servicios creados
+```powershell
+kubectl delete -f .
+
+# o también.
+kubectl delete deploy todo-app
+kubectl delete svc todo-app
 ```

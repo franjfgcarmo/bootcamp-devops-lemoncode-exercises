@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: ss-db-todo-app
+  name: ss-todo-db
 spec:
   selector:
     matchLabels:
-      app: ss-db-todo-app
-  serviceName: ss-db-todo-app
+      app: ss-todo-db
+  serviceName: ss-todo-db
   replicas: 1
   template:
     metadata:
       labels:
-        app: ss-db-todo-app
+        app: ss-todo-db
     spec:
       containers:
       - name: postgres
         image: postgres:16
         envFrom:
           - configMapRef:
-              name: cm-db-todo-app
+              name: cm-todo-db
         ports:
         - containerPort: 5432
           name: postgres      
@@ -29,7 +29,7 @@ spec:
   - metadata:
       name: postgres-data
     spec:
-      storageClassName: scn-db-todo-app
+      storageClassName: scn-todo-db
       accessModes: [ "ReadWriteOnce" ]
       resources:
         requests:

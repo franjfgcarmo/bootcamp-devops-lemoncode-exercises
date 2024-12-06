@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-db-todo-app
+  name: pvc-todo-db
 spec:
-  storageClassName: scn-db-todo-app
+  storageClassName: scn-todo-db
   resources:
     requests:
       storage: 10Gi

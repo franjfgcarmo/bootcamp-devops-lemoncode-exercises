@@ -65,41 +65,109 @@ En su lugar, hay varias alternativas que podríamos usar:
 3. Usar un _init container_ en el cliente (**no en la base de datos**). No podemos usar un _init container_ en el pod de la bbdd porque cuando se ejecutaría este _init container_ no se estaría ejecutando la bbdd. No obstante usar un _init container_ en el cliente (el pod de la app) no es una buena idea por dos motivos: el primero es que si el cliente se levanta antes que la bbdd,  el _init container_ no se podrá ejecutar, dará error y el pod quedará en `Init:Error`. El segundo es que este _init container_ se ejecutaría cada vez que se crease el pod de la app (si se escala horizontalmente cada pod tendrá su propio _init container_), por  lo que el script debe estar preparado para poder ser ejecutado N veces en paralelo y ser idempotente (lo que añade una complejidad inecesaria).
 
 ## Solución
-1. 
+Para el seed de datos, he optado por crear un job que ejecute un script el cual es montado desde un volumen a través de un configMap.
+1. Creo el configMap para el seed datos
 ```powershell
-kubectl apply -f .
-configmap/cm-db-todo-app created
-persistentvolume/pv-db-todo-app created
-persistentvolumeclaim/pvc-db-todo-app created
-storageclass.storage.k8s.io/scn-db-todo-app created
-statefulset.apps/ss-db-todo-app created
-service/svc-db-todo-app created
+> cd .\Exercise-2\ss-db\migrations\
+
+> kubectl create cm cm-db-migration --from-file .\todos_db.sql -o yaml > cm-db-migration.yaml
+#Comprobamos el configmap
+> kubectl get cm
+NAME               DATA   AGE
+cm-db-migration    1      38s
+kube-root-ca.crt   1      9m20s
 ```
-El pod tarde un minuto en estar disponible.
-2. Pruebo la conexión a la base de datos a traves de un `port-forward`
+
+2. Creamos el statefulSet de la base de datos con todos sus recursos necesarios:
+- [cm-todo-db.yaml](./ss-db/cm-todo-db.yaml). Configuración de base datos, usuario y contraseña.
+- [pv-todo-db.yaml](./ss-db/pv-todo-db.yaml). Creamos el `PersistentVolume`
+- [pvc-todo-db.yaml](./ss-db/pvc-todo-db.yaml). Creamos el `PersistentVolumeClaim`
+- [scn-todo-db.yaml](./ss-db/scn-todo-db.yaml). Creamos el `storageClass` para el volumen persistente.
+- [ss-todo-db.yaml](./ss-db/ss-todo-db.yaml). Creamos el `StatefulSet`, se configura el volumen para que utilice la `StorageClass` anteriormente creada. 
+- [svc-todo-db.yaml](./ss-db/svc-todo-db.yaml). Creamos el servicio para poder conectarnos posteriormente desde la aplicación
+
 ```powershell
- kubectl port-forward ss-db-todo-app-0 5432:5432
+# subimos un nivel
+> cd ..
+# Aplicamos los cambios.
+>kubectl apply -f .
+configmap/cm-todo-db created
+persistentvolume/pv-todo-db created
+persistentvolumeclaim/pvc-todo-db created
+storageclass.storage.k8s.io/scn-todo-db created
+statefulset.apps/ss-todo-db created
+service/svc-todo-db created
+```
+El pod del statefulSet tarde un minuto en estar disponible.
+
+Reviso un poco todas las configuraciones.
+````powershell
+> kubectl get statefulset
+ NAME         READY   AGE
+ ss-todo-db   1/1     107s
+
+> kubectl get svc -o wide
+NAME          TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE     SELECTOR
+kubernetes    ClusterIP   10.96.0.1      <none>        443/TCP    26m     <none>
+svc-todo-db   ClusterIP   10.98.100.22   <none>        5432/TCP   2m38s   app=ss-todo-db
+
+> kubectl get pods -o wide --show-labels
+ NAME           READY   STATUS    RESTARTS   AGE     IP           NODE       NOMINATED NODE   READINESS GATES   LABELS
+ ss-todo-db-0   1/1     Running   0          3m29s   10.244.0.6   minikube   <none>           <none>            app=ss-todo-db
+
+> kubectl get cm
+NAME               DATA   AGE
+cm-db-migration    1      16m
+cm-todo-db         2      64s
+kube-root-ca.crt   1      25m
+
+> kubectl get pv
+NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                                STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
+pv-todo-db                                 10Gi       RWO            Retain           Bound    default/pvc-todo-db                  scn-todo-db    <unset>                          72s
+pvc-05b8bd74-f322-40f9-a223-1e335068d165   10Gi       RWO            Delete           Bound    default/postgres-data-ss-todo-db-0   scn-todo-db    <unset>                          72s
+
+> kubectl get pvc
+NAME                         STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+postgres-data-ss-todo-db-0   Bound    pvc-05b8bd74-f322-40f9-a223-1e335068d165   10Gi       RWO            scn-todo-db    <unset>                 85s
+pvc-todo-db                  Bound    pv-todo-db                                 10Gi       RWO            scn-todo-db    <unset>                 85s
+````
+
+
+3. Pruebo la conexión a la base de datos a traves de un `port-forward`
+```powershell
+ kubectl port-forward ss-todo-db-0 5432:5432
  Forwarding from 127.0.0.1:5432 -> 5432
  Forwarding from [::1]:5432 -> 5432
 ```
-![Conexion base datos](./ss/images/bd.png)
-3. Creamos un configmap para la migracion
+Uso el cliente de Dveaver
+
+![Conexion base datos](./images/bd.png)
+
+Pruebo a conectarme desde la consola también:
 ```powershell
-kubectl create cm migration --from-file .\todos_db.sql -o yaml > cm-db-migration.yaml
+ kubectl exec -it ss-todo-db-0 -- /bin/sh
+# psql -U postgres
+psql (16.6 (Debian 16.6-1.pgdg120+1))
+Type "help" for help.
+
+postgres=#
 ```
 
 4. Ejecutamos el job
 ```powershell
+cd .\Exercise-2\ss-db\migrations\
 # Ejecutamos el jobs
  kubectl apply -f .\job-db-migration.yaml
 # Hacemos un port-forward para ver que la actualización se realiza.
- kubectl port-forward ss-db-todo-app-0 5432:5432
+kubectl port-forward ss-todo-db-0 5432:5432
 ```
-![Conexion base datos](./ss/images/db-todo.png)
 
+Probamos la conexión a la base de datos con el cliente de Dveaver
+![Conexion base datos](./images/db-todo.png)
 
+Probramos la conexión desde la consola.
 ```shell
- kubectl exec -it ss-db-todo-app-0 -- /bin/sh
+ kubectl exec -it ss-todo-db-0 -- /bin/sh
  # Contenedor del pod:
   psql -U postgres -d todos_db
 psql (16.6 (Debian 16.6-1.pgdg120+1))

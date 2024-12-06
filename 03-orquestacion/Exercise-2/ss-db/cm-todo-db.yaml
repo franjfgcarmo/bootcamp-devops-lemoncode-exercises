@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: cm-db-todo-app
+  name: cm-todo-db
 data:
   POSTGRES_USER: "postgres"
   POSTGRES_PASSWORD: "postgres"
