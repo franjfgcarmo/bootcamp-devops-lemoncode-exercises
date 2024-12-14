@@ -18,11 +18,9 @@ spec:
       containers:
         - name: lc-todo-api
           image: lemoncodersbc/lc-todo-api:v5-2024
-          env:
-            - name: NODE_ENV
-              value: Prod
-            - name: PORT
-              value: "3000"
+          envFrom:
+            - configMapRef:
+                name: cm-lc-todo-api
           ports:
             - containerPort: 3000
       
