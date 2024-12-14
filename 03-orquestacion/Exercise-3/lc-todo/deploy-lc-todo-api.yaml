@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-lc-todo-api
+  labels:
+    app: deploy-lc-todo-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lc-todo-api
+  template:
+    metadata:
+      name: lc-todo-api
+      labels:
+        app: lc-todo-api
+    spec:
+      containers:
+        - name: lc-todo-api
+          image: lemoncodersbc/lc-todo-api:v5-2024
+          env:
+            - name: NODE_ENV
+              value: Prod
+            - name: PORT
+              value: "3000"
+          ports:
+            - containerPort: 3000
+      

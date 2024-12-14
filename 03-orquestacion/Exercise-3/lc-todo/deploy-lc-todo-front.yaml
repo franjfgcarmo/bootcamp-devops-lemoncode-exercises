@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-lc-todo-front
+  labels:
+    app: deploy-lc-todo-front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lc-todo-front
+  template:
+    metadata:
+      name: lc-todo-front
+      labels:
+        app: lc-todo-front
+    spec:
+      containers:
+        - name: lc-todo-front
+          image: lemoncodersbc/lc-todo-front:v5-2024
+          ports:
+            - containerPort: 80
+      

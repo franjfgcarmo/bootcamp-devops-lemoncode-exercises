@@ -236,5 +236,7 @@ Accedemos a la url [http://127.0.0.1/](http://127.0.0.1/) donde minikube expoene
 
 ![app](./images/app.png)
 
+Lanzando el comando ´kubectl delete -f .´ sobre cada directorio: ``deploy-app``, `ss-db` , `ss-db\migrations`, borra todos los recursos creados.
+
 ### Mejoras.
 - Algunos confiMap, podrían convertirse en fichero secret, pero no se si aporta mucho hacerlo, quizás si se hiciera con Helm y desde una CI/CD, tendría mas sentido.

@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-lc-todo-api
+  labels:
+    name: ingress-lc-todo-api
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: 127-0-0-1.nip.io
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: svc-lc-todo-api
+                port:
+                  number: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: svc-lc-todo-front
+                port:
+                  number: 80
