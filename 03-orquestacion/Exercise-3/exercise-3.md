@@ -42,10 +42,10 @@ Crear un `Ingress` para exponer los servicios anteriormente creados. Como refere
 
 En la carpeta lc-todo están creados los recursos de kubernetes:
  - Deployment de ``todo-api``: [deploy-lc-todo-api.yaml](./lc-todo/deploy-lc-todo-api.yaml)
- - Deployment de ``todo-front``: [deploy-lc-todo-front.yaml](./lc-todo/deploy-lc-todo-api.yaml)
- - Servicio de ``Cluster IP`` para ``todo-api``: [svc-lc-todo-api.yaml](./lc-todo/deploy-lc-todo-api.yaml)
- - Servicio de ``Cluster IP`` para ``todo-front``: [svc-lc-todo-front.yaml](./lc-todo/deploy-lc-todo-api.yaml)
- - Recurso de ingresss creado para ``todo-api`` y ``todo-front``: [ingress-todo.yaml](./lc-todo/deploy-lc-todo-api.yaml)
+ - Deployment de ``todo-front``: [deploy-lc-todo-front.yaml](./lc-todo/deploy-lc-todo-front.yaml)
+ - Servicio de ``Cluster IP`` para ``todo-api``: [svc-lc-todo-api.yaml](./lc-todo/svc-lc-todo-api.yaml)
+ - Servicio de ``Cluster IP`` para ``todo-front``: [svc-lc-todo-front.yaml](./lc-todo/svc-lc-todo-front.yaml)
+ - Recurso de ingresss creado para ``todo-api`` y ``todo-front``: [ingress-todo.yaml](./lc-todo/ingress-todo.yaml)
 
 1. Instalar ingress en minikube
 
