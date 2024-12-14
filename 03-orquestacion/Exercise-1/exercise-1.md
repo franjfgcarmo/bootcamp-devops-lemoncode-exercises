@@ -38,6 +38,8 @@ deployment.apps/todo-app created
 >  kubectl apply -f .\svc-todo-app.yaml
 service/todo-app created
 ```
+También se puede lanzar este comando: ``kubectl apply -f .`` sobre el directorio para crear todos los recursos de golpe.
+
 5. Abrir el tunnel para conectarse a minikube para un servicio de tipo LoadBalancer
 ```powershell
 > minikube tunnel
