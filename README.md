@@ -16,3 +16,20 @@ Exercises
 - [Ejercicio 1.](./03-orquestacion/Exercise-1/exercise-1.md)
 - [Ejercicio 2.](./03-orquestacion/Exercise-2/exercise-2.md)
 - [Ejercicio 3.](./03-orquestacion/Exercise-3/exercise-3.md)
+
+## [04-CI](./04/CI)
+
+### Jenkins
+- [Ejercicio 1.](./04-CI/Jenkins/exercise-1.md)
+- [Ejercicio 2.](./04-CI/Jenkins/exercise-2.md)
+
+### Gitlab
+- [Ejercicio 1.](./04-CI/Gitlab/exercise-1.md)
+- [Ejercicio 2.](./04-CI/Gitlab/exercise-2.md)
+- [Ejercicio 3.](./04-CI/Gitlab/exercise-3.md)
+
+### Github
+- [Ejercicio 1.](./04-CI/Github/exercise-1.md)
+- [Ejercicio 2.](./04-CI/Github/exercise-2.md)
+- [Ejercicio 3.](./04-CI/Github/exercise-3.md)
+- [Ejercicio 4.](./04-CI/Github/exercise-4.md)
