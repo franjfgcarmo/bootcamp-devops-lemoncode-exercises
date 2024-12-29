@@ -17,7 +17,7 @@ Exercises
 - [Ejercicio 2.](./03-orquestacion/Exercise-2/exercise-2.md)
 - [Ejercicio 3.](./03-orquestacion/Exercise-3/exercise-3.md)
 
-## [04-CI](./04/CI)
+## [04-CI](./04-CI)
 
 ### Jenkins
 - [Ejercicio 1.](./04-CI/Jenkins/exercise-1.md)
