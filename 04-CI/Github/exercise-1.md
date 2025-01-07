@@ -6,3 +6,11 @@ Después crea un nuevo workflow que se dispare cuando haya cambios en el proyect
 
 * Build del proyecto de front
 * Ejecutar los unit tests
+
+### Solución
+
+- Se deje el link a la solución del problema: [Hangman-fron-CI](https://github.com/franjfgcarmo/gh-lemon-code-2024/blob/main/.github/workflows/hangman-front-ci.yaml)
+
+- También se deje el link a la [Pull request](https://github.com/franjfgcarmo/gh-lemon-code-2024/pull/9) que se utilizo para probar que se lanzaba la github action.
+
+- También dejo el link al  [workflow](https://github.com/franjfgcarmo/gh-lemon-code-2024/actions/workflows/hangman-front-ci.yaml), donde se puede ver los workflow ejecutados.
