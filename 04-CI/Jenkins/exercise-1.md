@@ -7,3 +7,23 @@ En el directorio raíz de este [código fuente](https://github.com/Lemoncode/boo
 * **Unit Tests**. Ejecutar los test unitarios utilizando `gradlew test`
 
 Para ejecutar Jenkins en local y tener las dependencias necesarias disponibles podemos contruir una imagen a partir de [este Dockerfile](https://github.com/Lemoncode/bootcamp-devops-lemoncode/blob/master/03-cd/exercises/jenkins-resources/gradle.Dockerfile)
+
+### Solución
+todo: Añadir link y output
+ ```shell
+docker build -t jenkins-gradle -f gradle.Dockerfile .
+
+docker run -d -p 8081:8080  -p 50001:50000 --name jenking-gradle jenkins-gradle
+
+docker exec -it be58681729bc /bin/bash 
+
+cat /var/jenkins_home/secrets/initialAdminPassword
+ ```
+
+ ![](./images/installation.png)
+  ![](./images/github-credentials.png)
+
+  ![alt text](image.png)
+
+  ![alt text](image-1.png)
+  
