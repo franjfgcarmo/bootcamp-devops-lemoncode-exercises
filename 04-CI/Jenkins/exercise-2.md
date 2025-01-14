@@ -5,7 +5,27 @@
 * Usar la imagen de Docker `gradle:6.6.1-jre14-openj9`
 
 ### Solución
-todo: Añadir link y output
-![alt text](image-2.png)
-![alt text](image-3.png)
+#### 1. Generación de la imagen de docker para gradle.
+
+Utilizamos la imagen de Docker in Docker de Jenkins [la imagen de Docker in Docker de Jenkins](https://github.com/Lemoncode/bootcamp-devops-lemoncode/blob/master/03-cd/01-jenkins/00-instalando-jenkins/docker-compose.yml).
+
+
+#### 2. Configuramos el repositorio de Github para que Jenkins se conecte y pueda ejecutar la pipeline.
+
+>Manage  Jenking > Credential>
+
+![Credenciales de jenkins](resourses/github-credentials.png)
+
+- [Repositorio de github con el código fuente y las pipelines](https://github.com/franjfgcarmo/jenkins-demos/tree/main/calculator)
+- [Archivo de Jenkinsfile de ejercicio 1](https://github.com/franjfgcarmo/jenkins-demos/blob/main/calculator/pipelines/exercise-2/Jenkinsfile)
+
+#### 3. Creación de la pipeline desde Jenkins
+![Creación de pipeline](resourses/image-2.png)
+![Creación de pipeline](resourses/image-3.png)
+
+#### 4. Ejecución de la pipeline
+[Se adjunto output de la pipeline](resourses/s#2.txt)
+
+![Pipeline de jenkins](image.png)
+
 

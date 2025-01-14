@@ -1,0 +1,88 @@
+Started by user Francisco José Fernandez García
+Obtained calculator/pipelines/exercise-1/Jenkinsfile from git https://github.com/franjfgcarmo/jenkins-demos.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/exercise-1
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github-credentials
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/exercise-1/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/franjfgcarmo/jenkins-demos.git # timeout=10
+Fetching upstream changes from https://github.com/franjfgcarmo/jenkins-demos.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.5'
+using GIT_ASKPASS to set credentials Github personal access token
+ > git fetch --tags --force --progress -- https://github.com/franjfgcarmo/jenkins-demos.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 8c0fab306e7e72e5ca641624c6f460af5ae7b009 (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 8c0fab306e7e72e5ca641624c6f460af5ae7b009 # timeout=10
+Commit message: "wip"
+ > git rev-list --no-walk e462cdcfafd07e9f50e558fd2011895f979546f2 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Compile)
+[Pipeline] dir
+Running in /var/jenkins_home/workspace/exercise-1/calculator
+[Pipeline] {
+[Pipeline] sh
++ ls
+README.md
+build
+build.gradle
+gradle
+gradlew
+gradlew.bat
+pipelines
+settings.gradle
+src
+[Pipeline] sh
++ chmod +x gradlew
+[Pipeline] sh
++ ./gradlew compileJava
+Starting a Gradle Daemon (subsequent builds will be faster)
+> Task :compileJava UP-TO-DATE
+
+BUILD SUCCESSFUL in 5s
+1 actionable task: 1 up-to-date
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] dir
+Running in /var/jenkins_home/workspace/exercise-1/calculator
+[Pipeline] {
+[Pipeline] sh
++ chmod +x gradlew
+[Pipeline] sh
++ ./gradlew test
+> Task :compileJava UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :classes UP-TO-DATE
+> Task :compileTestJava UP-TO-DATE
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test UP-TO-DATE
+
+BUILD SUCCESSFUL in 1s
+4 actionable tasks: 4 up-to-date
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
