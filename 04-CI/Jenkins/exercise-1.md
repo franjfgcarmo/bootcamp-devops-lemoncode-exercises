@@ -9,7 +9,7 @@ En el directorio raíz de este [código fuente](https://github.com/Lemoncode/boo
 Para ejecutar Jenkins en local y tener las dependencias necesarias disponibles podemos contruir una imagen a partir de [este Dockerfile](https://github.com/Lemoncode/bootcamp-devops-lemoncode/blob/master/03-cd/exercises/jenkins-resources/gradle.Dockerfile)
 
 ### Solución
-#### 1. Generación de la imagen de docker para gradle.
+#### 1. Generación de la imagen y el contenedor de docker para gradle.
 
  ```shell
 docker build -t jenkins-gradle -f gradle.Dockerfile .
@@ -36,7 +36,7 @@ cat /var/jenkins_home/secrets/initialAdminPassword
 ![Creación de pipeline](resourses/image-1.png)
 
 #### 4. Ejecución de la pipeline
-[Se adjunto output de la pipeline](resourses/s#14.txt)
+[Se adjunto output de la pipeline](resourses/s_14.txt)
 
 ![Resultado de pipeline](resourses/image-4.png)
   

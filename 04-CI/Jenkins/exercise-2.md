@@ -24,7 +24,7 @@ Utilizamos [el docker compose para la instalación de Jenkins con Docker in Dock
 ![Creación de pipeline](resourses/image-3.png)
 
 #### 4. Ejecución de la pipeline
-[Se adjunto output de la pipeline](resourses/s#2.txt)
+[Se adjunto output de la pipeline](resourses/s_2.txt)
 
 ![Pipeline de jenkins](image.png)
 
