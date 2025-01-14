@@ -36,7 +36,7 @@ cat /var/jenkins_home/secrets/initialAdminPassword
 ![Creación de pipeline](resourses/image-1.png)
 
 #### 4. Ejecución de la pipeline
-[Se adjunto output de la pipeline](resourses/#14.txt)
+[Se adjunto output de la pipeline](resourses/s#14.txt)
 
 ![Resultado de pipeline](resourses/image-4.png)
   

@@ -5,9 +5,9 @@
 * Usar la imagen de Docker `gradle:6.6.1-jre14-openj9`
 
 ### Solución
-#### 1. Generación de la imagen de docker para gradle.
+#### 1. Generación de contenedor a través de docker compose.
 
-Utilizamos la imagen de Docker in Docker de Jenkins [la imagen de Docker in Docker de Jenkins](https://github.com/Lemoncode/bootcamp-devops-lemoncode/blob/master/03-cd/01-jenkins/00-instalando-jenkins/docker-compose.yml).
+Utilizamos [el docker compose para la instalación de Jenkins con Docker in Docker](https://github.com/Lemoncode/bootcamp-devops-lemoncode/blob/master/03-cd/01-jenkins/00-instalando-jenkins/docker-compose.yml).
 
 
 #### 2. Configuramos el repositorio de Github para que Jenkins se conecte y pueda ejecutar la pipeline.
