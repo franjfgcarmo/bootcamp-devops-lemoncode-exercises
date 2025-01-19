@@ -17,7 +17,7 @@ Utilizamos [el docker compose para la instalación de Jenkins con Docker in Dock
 ![Credenciales de jenkins](resourses/github-credentials.png)
 
 - [Repositorio de github con el código fuente y las pipelines](https://github.com/franjfgcarmo/jenkins-demos/tree/main/calculator)
-- [Archivo de Jenkinsfile de ejercicio 1](https://github.com/franjfgcarmo/jenkins-demos/blob/main/calculator/pipelines/exercise-2/Jenkinsfile)
+- [Archivo de Jenkinsfile de ejercicio 2](https://github.com/franjfgcarmo/jenkins-demos/blob/main/calculator/pipelines/exercise-2/Jenkinsfile)
 
 #### 3. Creación de la pipeline desde Jenkins
 ![Creación de pipeline](resourses/image-2.png)

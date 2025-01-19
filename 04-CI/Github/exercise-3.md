@@ -22,9 +22,9 @@ npm run open
 
 He implementado la solución utilizando la github action de Cypress, mirando la sección de  [Subfolders](https://github.com/cypress-io/github-action?tab=readme-ov-file#subfolders), por otro lado vi que se generaba un video y lo he subido como un artifact a la pipeline, seguí también la documentación de la github action.
 
-> Dejo el link a la action: 
+- Dejo el link a la action: 
 [Github Action: Hangman front cd](https://github.com/franjfgcarmo/gh-lemon-code-2024/blob/main/.github/workflows/hagman-e2e-ci.yaml)
 
-> Listado de los worklows ejecutados: [Workflows ejecutados](https://github.com/franjfgcarmo/gh-lemon-code-2024/actions/workflows/hagman-e2e-ci.yaml)
+- Listado de los worklows ejecutados: [Workflows ejecutados](https://github.com/franjfgcarmo/gh-lemon-code-2024/actions/workflows/hagman-e2e-ci.yaml)
 
-> Link a la última action ejecutada, donde se puede ver la pipeline, el resultado de los test y el artifact del video: [Action.](https://github.com/franjfgcarmo/gh-lemon-code-2024/actions/runs/12854291067). Como peculiaridad, le añadí la versión corta del commit a al imagen que se genera.
+- Link a la última action ejecutada, donde se puede ver la pipeline, el resultado de los test y el artifact del video: [Action.](https://github.com/franjfgcarmo/gh-lemon-code-2024/actions/runs/12854291067). Como peculiaridad, le añadí la versión corta del commit a al imagen que se genera.

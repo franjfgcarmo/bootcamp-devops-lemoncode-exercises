@@ -11,9 +11,9 @@ Segui un poco los pasos para publicar en el container registry, tuve que habilit
 - Dar permisos de escritura.
 ![Permisos](./images/workflow%20permissions.png)
 
-> Dejo el a la action: 
+- Dejo el a la action: 
 [Github Action: Hangman front cd](https://github.com/franjfgcarmo/gh-lemon-code-2024/blob/main/.github/workflows/hangman-front-cd.yaml)
 
-> Listado de los worklows ejecutados: [Workflows ejecutados](https://github.com/franjfgcarmo/gh-lemon-code-2024/actions/workflows/hangman-front-cd.yaml)
+- Listado de los worklows ejecutados: [Workflows ejecutados](https://github.com/franjfgcarmo/gh-lemon-code-2024/actions/workflows/hangman-front-cd.yaml)
 
-> Link al container registry: [Container registry.](https://github.com/franjfgcarmo/gh-lemon-code-2024/pkgs/container/gh-lemon-code-2024%2Fhangman-front). Como peculiaridad, le añadí la versión corta del commit a al imagen que se genera.
+- Link al container registry: [Container registry.](https://github.com/franjfgcarmo/gh-lemon-code-2024/pkgs/container/gh-lemon-code-2024%2Fhangman-front). Como peculiaridad, le añadí la versión corta del commit a al imagen que se genera.
