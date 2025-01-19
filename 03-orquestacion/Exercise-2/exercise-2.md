@@ -122,14 +122,13 @@ cm-todo-db         2      64s
 kube-root-ca.crt   1      25m
 
 > kubectl get pv
-NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                                STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
-pv-todo-db                                 10Gi       RWO            Retain           Bound    default/pvc-todo-db                  scn-todo-db    <unset>                          72s
-pvc-05b8bd74-f322-40f9-a223-1e335068d165   10Gi       RWO            Delete           Bound    default/postgres-data-ss-todo-db-0   scn-todo-db    <unset>                          72s
+NAME         CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                 STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
+pv-todo-db   10Gi       RWO            Retain           Bound    default/pvc-todo-db   scn-todo-db    <unset>
 
 > kubectl get pvc
-NAME                         STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
-postgres-data-ss-todo-db-0   Bound    pvc-05b8bd74-f322-40f9-a223-1e335068d165   10Gi       RWO            scn-todo-db    <unset>                 85s
-pvc-todo-db                  Bound    pv-todo-db                                 10Gi       RWO            scn-todo-db    <unset>                 85s
+kubectl get pvc
+NAME          STATUS   VOLUME       CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+pvc-todo-db   Bound    pv-todo-db   10Gi       RWO            scn-todo-db    <unset>                 80s
 ````
 
 

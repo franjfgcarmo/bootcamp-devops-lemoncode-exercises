@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels:
       app: ss-todo-db
-  serviceName: ss-todo-db
+  serviceName: svc-todo-db
   replicas: 1
   template:
     metadata:
@@ -25,12 +25,7 @@ spec:
         volumeMounts:
         - name: postgres-data
           mountPath: /var/lib/postgresql/data
-  volumeClaimTemplates:
-  - metadata:
-      name: postgres-data
-    spec:
-      storageClassName: scn-todo-db
-      accessModes: [ "ReadWriteOnce" ]
-      resources:
-        requests:
-          storage: 10Gi
+      volumes:
+        - name: postgres-data
+          persistentVolumeClaim:
+            claimName: pvc-todo-db
