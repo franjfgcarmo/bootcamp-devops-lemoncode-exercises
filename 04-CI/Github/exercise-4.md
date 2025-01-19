@@ -30,9 +30,9 @@ git tag -a -m "Get motivational message. First release" v1.0.0
 git push --follow-tags  
 ```
 
-4. En el repositorio de la [entrega](https://github.com/franjfgcarmo/gh-lemon-code-2024/) creamos la siguiente [github action](https://github.com/franjfgcarmo/gh-lemon-code-2024/blob/main/.github/workflows/issue-motivate.yaml).
+4. Creamos la siguiente [github action](https://github.com/franjfgcarmo/gh-lemon-code-2024/blob/main/.github/workflows/issue-motivate.yaml).
 
-
+**Archivo yaml**
 ```yaml
 name: Motivate on Label
 on:
@@ -50,5 +50,5 @@ jobs:
 
 - Dejo el link de las issues creadas para probar: [Issues](https://github.com/franjfgcarmo/gh-lemon-code-2024/issues)
 
-- Dejo [link](https://github.com/franjfgcarmo/gh-lemon-code-2024/actions/runs/12856299191/job/35842820842) a unos de los jobs ejecutados.
+- Dejo el [link](https://github.com/franjfgcarmo/gh-lemon-code-2024/actions/runs/12856299191/job/35842820842) a unos de los jobs ejecutados.
 ![alt text](image.png)
