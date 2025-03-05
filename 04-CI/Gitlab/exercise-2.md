@@ -19,7 +19,7 @@ Acciones a probar:
 ![alt text](image-2.png)
 
 - Commit. **Si permite**
-- Push and pull.** No me ha permitido **
+- Push and pull. **No me ha permitido**
 ![alt text](image.png)
 - Merge request. **No aparece el botón para crear pull request**
 - Acceder a la administración del repo. **Sólo permite consultarlo**

@@ -23,7 +23,7 @@ Relizar de las siguientes maneras:
 
 * **Con el método de CI job token**
 
-El usuario `exercise-2`, es el que uso para clonar los repo.
+El usuario `exercise-2`, es el que uso para clonar el repo.
 
  ```yaml
  stages:
@@ -89,4 +89,5 @@ Cleaning up project directory and file based variables
 00:01
 Job succeeded
  ```
+
 

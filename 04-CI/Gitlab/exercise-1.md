@@ -77,5 +77,5 @@ deploy:
   script:
     - docker run -d --name springapp -p 8082:8080 $CI_REGISTRY/$CI_PROJECT_PATH:$CI_COMMIT_SHA
 ```
-- Se adjunta gif, donde se puede ver como navega por las diferentes stages de la pipeline, la aplicación levantado de springapp en `localhost:8082` y el registry de la imagen de docker.
+- Se adjunta gif, donde se puede ver como navega por las diferentes stages de la pipeline, la aplicación de springapp levantada en `localhost:8082` y el registry de la imagen de docker.
 ![](pipeline.gif)
